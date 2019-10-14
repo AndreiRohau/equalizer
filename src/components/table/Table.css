@@ -1,0 +1,29 @@
+.table {
+  display: grid;
+  grid-template-rows: 70% 30%;
+}
+
+.table__textarea {
+  display: grid;
+  grid-template-rows: 10% 90%;
+  resize: none;
+}
+.table__textarea textarea {
+  resize: none;
+}
+.table__buttons {
+  align-self: center;
+}
+.table__buttons button {
+  height: 40px;
+  width: 30%;
+  background: var(--blue);
+  border-color: var(--blue);
+  border-radius: 6px;
+}
+.table__buttons button:nth-child(n + 2) {
+  margin-left: 2%;
+}
+ul {
+  list-style-type: none;
+}
