@@ -61,7 +61,7 @@ function App(props) {
                 {solution.propose.map((elem, index) => (
                   <li onClick={() => getSolution(elem)} className={`${Date.now()}/${index}`}>
                   <p>{topics[index]}
-                   {elem}
+                   {/* {elem} */}
                    </p></li>
                 ))}
               </ol>
