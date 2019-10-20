@@ -6,6 +6,10 @@ header {
   background: #0c4037;
   color: white;
 }
+a:link {
+  text-decoration: none;
+}
+
 header .logo {
   display: flex;
   flex-flow: row nowrap;
@@ -45,4 +49,13 @@ header .rest img {
   width: 70px;
   height: 70px;
   align-self: center;
+}
+a {
+  color: white
+}
+header a {
+  cursor: pointer;
+}
+header a:hover {
+  color: #18806e;
 }

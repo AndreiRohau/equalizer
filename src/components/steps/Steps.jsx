@@ -3,6 +3,7 @@ import './Steps.css';
 
 const Steps = ({ solution, text }) => {
   const [isShowSolution, showSolution] = useState(false);
+  
   return (
     <section className="steps">
       <span>Пошаговое решение уравнений</span>

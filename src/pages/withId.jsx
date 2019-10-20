@@ -8,7 +8,19 @@ function App(props) {
   const [solution, setSolution] = useState({ propose: [] });
   const [check, sets] = useState(0);
   const [text, setText] = useState(solution.statement);
+
+  console.log("withID---------------->");
+  console.log("props", props);
+
+  // console.log("withID got text", props.location.state.value);
+  // console.log("withID got solution", props.location.state.solution);
+  // setText(props.location.state.value);
+  // setSolution(props.location.state.solution);
+  console.log("withID solution", solution);
+  console.log("withID text", text);
+
   async function getSolution(url) {
+    console.log("IN solution withID")
     const URL =
       url === 'http://localhost:7777/resolve'
         ? `http://localhost:7777/resolve?statement=${text}`
@@ -22,18 +34,26 @@ function App(props) {
     setSolution(json);
     props.history.push(`/${json.uuid}`, { value: text, solution: json });
   }
+
   useEffect(() => {
     console.log('rerender');
+
+    console.log(`http://localhost:7777/resolve${props.location.pathname}`);
+
     fetch(`http://localhost:7777/resolve${props.location.pathname}`, {
       method: 'GET',
       mode: 'cors',
     })
       .then((res) => res.json())
+      // .then((res) =>console.log("response!!!!!", res.statement))
       .then((res) => {
-        setSolution(res);
         setText(res.statement);
+        setSolution(res);
       });
   }, [check]);
+
+  console.log("with ID RETURN");
+  
   return (
     <div className="App">
       <Header />
@@ -60,7 +80,7 @@ function App(props) {
             <div className="right__faker">
               <ul onClick={(e) => setText(e.target.innerText)}>
                 {solution.propose.map((elem, index) => (
-                  <li classNmae={`${Date.now()}/${index}`}>{elem}</li>
+                  <li className={`${Date.now()}/${index}`}>{elem}</li>
                 ))}
               </ul>
             </div>
