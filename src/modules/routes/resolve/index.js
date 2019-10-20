@@ -2,25 +2,28 @@ const express = require('express');
 const router = express.Router();
 const faker = require('faker');
 const cash = new Map();
+
 router.get('/resolve', async (req, res) => {
   const data = {
     statement: req.query.statement,
     propose: faker.random.arrayElement([
-      ['test1', 'test2', 'test3', 'test4', 'test5', 'test6'],
+      ['2x^2 + 3x + 9 = 0', '5x^2 + 3x + 9 = 0', '6x^2 + 3x = 0', '5x^2 = 0', 'x^2 + 7 = 0', '-8x^2 + 7x + 33 = 0'],
 
-      ['zend1', 'zend2', 'zend3', 'zend4', 'zend5', 'zend6'],
+      ['6x^2 + 3x = 0', '5x^2 = 0', 'x^2 + 7 = 0', '-8x^2 + 7x + 33 = 0', '2x^2 + 3x + 9 = 0', '5x^2 + 3x + 9 = 0'],
 
-      ['beta1', 'beta2', 'beta3', 'beta4', 'beta5', 'beta6'],
+      ['8x^3 + 3x = 0', '25x^3 = 0', 'x^3 + 7 = 0', '-33x^3 + 7x + 33 = 0', '44x^3 + 3x + 9 = 0', '57x^3 + 3x + 9 = 0'],
 
-      ['alfa1', 'alfa2', 'alfa3', 'alfa4', 'alfa5', 'alfa6'],
+      ['655x^3 + 3x = 0', '3ax^3 = 0', '34x^3 + 7 = 0', '-343x^3 + 7x + 33 = 0', '447x^3 + 3x + 9 = 0', '57x^3 + 3x + 9 = 0'],
     ]),
     solutions: faker.random.arrayElement([
-      ['sol1', 'sol2', 'sol2', 'sol3'],
-      ['ols1', 'ols', 'ols', 'ols3'],
-      ['los1', 'los2', 'los2', 'los3'],
+      ['x = 1 + y * 7', 'y = 1 + x * 8', 'x = 19/x + y * 73', 'x = 21 + 4/x - y * 7'],
+      ['z = 1 + y * 7', 'y = 1 + z * 8', 'z = 19/z + y * 73', 'z = 21 + 4/z - y * 7'],
+      ['z = 1 + x * 7', 'z = 1 + x * 8', 'x = 19/x + z * 73', 'x = 21 + 4/x - z * 7'],
     ]),
     answer: faker.random.number(),
+    text: req.query.statement,
   };
+  console.log(req);
   const uuid = faker.random.uuid();
   console.log('resolve:', uuid);
   cash.set(uuid, data);
@@ -29,6 +32,7 @@ router.get('/resolve', async (req, res) => {
   res.send({ ...data, uuid });
   res.end();
 });
+
 router.get('/resolve/:id', async (req, res) => {
   const uuid = req.params.id;
   console.log('GET cash', uuid);
