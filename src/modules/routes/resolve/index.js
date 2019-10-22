@@ -43,4 +43,27 @@ router.get('/resolve/:id', async (req, res) => {
   res.end();
 });
 
+router.get('/content/popular', async (req, res) => {
+  console.log(req)
+  const data = {
+    topic: faker.random.arrayElement([
+      ["Квадратные уравнения"], 
+      ["Линейные уровнения"], 
+      ["Система уравнений"], 
+      ["Решение интегралов"], 
+      ["Система уравнений"], 
+      ["Yравнения вида sinx a"]
+    ]),
+    popular: faker.random.arrayElement([
+      ['2x^2 + 3x + 9 = 0'], ['5x^2 + 3x + 9 = 0'], ['6x^2 + 3x = 0'], ['5x^2 = 0'], ['x^2 + 7 = 0'], ['-8x^2 + 7x + 33 = 0'],
+    ]),
+    watched: faker.random.number()
+  };
+  console.log(req);
+  const uuid = faker.random.uuid();
+  res.status(200);
+  res.send({ ...data, uuid });
+  res.end();
+});
+
 module.exports = router;
