@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import Topic from '../components/Topic';
 import Header from '../components/header';
-import Table from '../components/table';
-import Steps from '../components/steps';
+
 
 function App(props) {
     const [isCalculated, setCalculated] = useState(true);
     const [solution, setSolution] = useState({ propose: [] });
-    const [check, setCheck] = useState(0);
+    const [check, sets] = useState(0);
     const [text, setText] = useState(solution.statement);
-
     let commonEquation;
 
     async function getSolution(elem) {
@@ -40,41 +37,60 @@ function App(props) {
         .then((res) => res.json())
         .then((res) => {
           setSolution(res);
-          console.log("sukaaaaaa", res);
-          console.log("sukaaaaaa", solution);
           setText(res.statement);
         });
     }, [check]);
 
+    function dateNow() {
+        var today = new Date();
+        // var dd = String(today.getDate()).padStart(2, '0');
+        // var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        // var yyyy = today.getFullYear();
+
+        
+        var dd = String(getRandomInt(30)).padStart(2, '0');
+        var mm = String(getRandomInt(12) + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+
+        today = mm + '/' + dd + '/' + yyyy;
+        return today;
+    }
+
+    function getRandomInt(max) {
+        return Math.floor(Math.random() * Math.floor(max));
+    }
+
+    const pricesRandom = [getRandomInt(10), getRandomInt(10),getRandomInt(10),getRandomInt(10),getRandomInt(10),getRandomInt(10)]
+
+    const arrSum = pricesRandom.reduce((a, b) => a + b, 0)
+
+      console.log("arrsum", arrSum);
+
     const topics = ["Квадратные уравнения", "Линейные уровнения", "Система уравнений", 
                     "Решение интегралов", "Система уравнений", "Yравнения вида sinx a"];
-
-                    
-  const names = ['anya','tanya','manya','vanya','sanya'];
-  const cities = ['Minsj','Varkuta','Oslo','Rim','Kirobv'];
-  const pics = ['', '', ''];
-
   return (
   <div className="App">
     <Header />
     <main>
       
-    <h2>Темы</h2>
+    <h2>Итория запросов и оплаты</h2>
     <section className="container">  
       <section className="left">   
           <section className="table">
             <div className="table">
-
               <ol onClick={(e) => setText(e.target.innerText)}>
+              <p>ДАТА----ЦЕНА----ТЕМА----[УРАВНЕНИЕ]</p>
                 {solution.propose.map((elem, index) => (
                   <li onClick={() => getSolution(elem)} className={`${Date.now()}/${index}`}>
-                  <p>{topics[index]}
-                   {/* {elem} */}
-                   </p></li>
+                  <p>
+                  {dateNow()} {pricesRandom[index]} {topics[index]} [ {elem} ]
+                   </p>
+                   </li>
                 ))}
               </ol>
-
             </div>
+            <br/>
+            <p>Итого: {arrSum}</p>
           </section>
         </section>
 
@@ -90,7 +106,7 @@ function App(props) {
 
     </section>
 
-      <section className="advertising"></section>
+      {/* <section className="advertising"></section> */}
     </main>
   </div>
   );

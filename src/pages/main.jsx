@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../components/header';
 import Table from '../components/table';
 
@@ -7,6 +7,11 @@ function App(props) {
   const [isCalculated, setCalculated] = useState(false);
   const [solution, setSolution] = useState({});
   const [text, setText] = useState('');
+
+  const [check, setCheck] = useState(0);
+  const [topic, setTopic] = useState();
+  const [popular, setPopular] = useState();
+  const [watched, setWatched] = useState();
 
   function getSolution() {
     console.log("main ->>>>>>>>>>>>>>>");
@@ -30,80 +35,88 @@ function App(props) {
     props.history.push(`/${solution.uuid}`, { value: text, solution });
   }
 
-  console.log(props);
+  function getRandomInt(max){
+    return Math.floor(Math.random() * Math.floor(max));
+  }
 
-  if (text === '') {
+  useEffect(() => {
+    console.log('rerender');
+    fetch(`http://localhost:7777/content/popular`, {
+      method: 'GET',
+      mode: 'cors',})
+      .then((res) => res.json())
+      .then((res) => {
+        console.log("Popular response is ",res);
+        setTopic(res.topic);
+        setPopular(res.popular);
+        setWatched(res.watched);
+      });
+  }, [check]);
+
   return (
     <div className="App">
       <Header />
       <main>
+        
+        <div>
+          <p>Популярное сегодня: {topic}. Количество просмотров: {watched}</p>
+          <p onClick={(e) => {
+            document.getElementById("input").value=popular; setText(document.getElementById("input").value)}
+            }>
+            {popular}
+              </p>
+        </div>
+
         <h2>Калькулятор уравнений</h2>
+        
         <section className="container">
-          <section className="left">
-            <Table isCalculated={isCalculated} text={text} setText={setText} />
+          
+          <section className="left">   
+            <section className="table">
+              <div className="table__textarea">
+                <label htmlFor="input">Введённое уравнение</label>
+                <textarea
+                  id="input"
+                  // defaultValue={text}
+                  onChange={(e) => {setText(e.target.value);}}
+                  placeholder="введите уравнение"
+                ></textarea>
+              </div>
+
+              {text !== '' ? (
+                <div className="table__buttons">
+                <p></p>
+                  <button onClick={() => getSolution()}>
+                    Дискриминант
+                  </button>
+                  <button onClick={() => getSolution()}>
+                    Теорема Виета
+                  </button>
+                  <button onClick={() => getSolution()}>
+                    Разложение на группы
+                  </button>
+                </div>
+                
+                ): ''}
+
+            </section>
           </section>
+
           <section className="right">
             <button className="right__resolve" onClick={getSolution}>
               Решить
             </button>
             <button className="right__photo">Фото</button>
-            <div className="right__faker">random</div>
+            <div className="right__faker" >Ваша рэклама</div>
           </section>
+
         </section>
+
         <section className="advertising"></section>
+
       </main>
     </div>
-  );
-  } else {
-    return (
-      <div className="App">
-        <Header />
-        <main>
-          <h2>Калькулятор уравнений</h2>
-          
-          <section className="container">
-            
-            <section className="left">   
-              <section className="table">
-                <div className="table__textarea">
-                  <label htmlFor="input">Введённое уравнение</label>
-                  <textarea
-                    id="input"
-                    // defaultValue={text}
-                    onChange={(e) => {setText(e.target.value);}}
-                    placeholder="введите уравнение"
-                  ></textarea>
-                </div>
-                <div className="table__buttons">
-                  <p></p>
-                    <button onClick={() => getSolution()}>
-                      Дискриминант
-                    </button>
-                    <button onClick={() => getSolution()}>
-                      Теорема Виета
-                    </button>
-                    <button onClick={() => getSolution()}>
-                      Разложение на группы
-                    </button>
-                  </div>
-              </section>
-            </section>
-
-            <section className="right">
-              <button className="right__resolve" onClick={getSolution}>
-                Решить
-              </button>
-              <button className="right__photo">Фото</button>
-              <div className="right__faker">random</div>
-            </section>
-
-          </section>
-
-          <section className="advertising"></section>
-        </main>
-      </div>
-      );
-  }
+    );
 
 }
 
