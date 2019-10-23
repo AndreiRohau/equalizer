@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Author from '../components/Author';
 import Header from '../components/header';
 import Table from '../components/table';
 
@@ -8,10 +9,12 @@ function App(props) {
   const [solution, setSolution] = useState({});
   const [text, setText] = useState('');
 
-  // const [check, setCheck] = useState(0);
-  // const [topic, setTopic] = useState();
-  // const [popular, setPopular] = useState();
-  // const [watched, setWatched] = useState();
+  const [author, setAuthor] = useState({author:[]}); 
+  const [photo, setPhoto] = useState({photo:[]}); 
+  const [city, setCity] = useState({city:[]}); 
+  const [subject, setSubject] = useState({subject:[]});
+
+  const [authors, setAuthors] = useState({authors:[]}); 
 
   const [check, setCheck] = useState(0);
   const [names, setNames] = useState({names: []});
@@ -44,55 +47,34 @@ function App(props) {
     return Math.floor(Math.random() * Math.floor(max));
   }
 
-  // корабль
-  // useEffect(() => {
-  //   console.log('rerender');
-  //   fetch(`http://localhost:7777/content/popular`, {
-  //     method: 'GET',
-  //     mode: 'cors',})
-  //     .then((res) => res.json())
-  //     .then((res) => {
-  //       console.log("Popular response is ",res);
-  //       setTopic(res.topic);
-  //       setPopular(res.popular);
-  //       setWatched(res.watched);
-  //     });
-  // }, [check]);
-
   useEffect(() => {
     console.log('rerender');
-    fetch(`http://localhost:7777/content/authors`, {
+    fetch(`http://localhost:7777/content/author`, {
       method: 'GET',
       mode: 'cors',})
       .then((res) => res.json())
       .then((res) => {
         console.log("authors response is ",res);
-        setNames(res.names);
-        setCities(res.cities);
-        setImgs(res.imgs);
-      });
+        setAuthors(res.propose);
+      })
   }, [check]);
-  
-  
+
+
+  console.log("suka authors",authors[0]);
+
   return (
     <div className="App">
       <Header />
       <main>
-        
-        <div>
-          <p>{names[0]} - {names[1]} - {names[2]} - {names[3]}</p>
-          <p>{cities[0]} - {cities[1]} - {cities[2]} - {cities[3]}</p>
-          <p>{imgs[0]} - {imgs[1]} - {imgs[2]} - {imgs[3]}</p>
-        </div>
-
-        {/* <div>
-          <p>Популярное сегодня: {topic}. Количество просмотров: {watched}</p>
-          <p onClick={(e) => {
-            document.getElementById("input").value=popular; setText(document.getElementById("input").value)}
-            }>
-            {popular}
-              </p>
-        </div> */}
+      {/* <p>{authors[0].author}</p> */}
+      {/* {author[0] && author.map((item, index) => (
+         <div> 
+          <p>Автор: {item}</p> 
+          <p> Количество добавленных тем: {subject[index]}</p> 
+          <img src={photo[index]} /> 
+          <p>Город:{city[index]}</p> 
+         </div>
+      ))} */}
 
         <h2>Калькулятор уравнений</h2>
         
@@ -139,11 +121,12 @@ function App(props) {
 
         </section>
 
-        <section className="advertising"></section>
+        {/* <section className="advertising"></section> */}
 
       </main>
     </div>
     );
+  
 }
-
+  
 export default App;
