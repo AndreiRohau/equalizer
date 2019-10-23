@@ -80,9 +80,9 @@ function App(props) {
       <main>
         
         <div>
-          <p>{names[getRandomInt(4)]}</p>
-          <p>{cities[getRandomInt(4)]}</p>
-          <p>{imgs[getRandomInt(4)]}</p>
+          <p>{names[0]} - {names[1]} - {names[2]} - {names[3]}</p>
+          <p>{cities[0]} - {cities[1]} - {cities[2]} - {cities[3]}</p>
+          <p>{imgs[0]} - {imgs[1]} - {imgs[2]} - {imgs[3]}</p>
         </div>
 
         {/* <div>
