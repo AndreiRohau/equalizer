@@ -66,4 +66,27 @@ router.get('/content/popular', async (req, res) => {
   res.end();
 });
 
+router.get('/content/authors', async (req, res) => {
+  console.log(req)
+  const data = {
+    names: faker.random.arrayElement([
+      ["Таня", "Ваня", "Маня", "Саня"], 
+      ["Оля", "Зоя", "Коля", "Моня"],
+    ]),
+    cities: faker.random.arrayElement([
+      ["Варкута", "Москва", "Рязань", "Минск"], 
+      ["Гомель", "Иркутск", "Киев", "Дрезден"],
+    ]),
+    imgs: faker.random.arrayElement([
+      ["../../1.jpg", "../../2.jpg", "../../3.jpg", "../../4.jpg"], 
+      ["../../5.jpg", "../../6.jpg", "../../7.jpg", "../../8.jpg"],
+    ]),
+  };
+  console.log(req);
+  const uuid = faker.random.uuid();
+  res.status(200);
+  res.send({ ...data, uuid });
+  res.end();
+});
+
 module.exports = router;
