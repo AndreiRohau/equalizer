@@ -89,4 +89,28 @@ router.get('/content/authors', async (req, res) => {
   res.end();
 });
 
+
+router.get('/content/author', async (req, res) => { 
+  console.log(req) 
+    const data = {
+      authors: faker.random.arrayElement([ 
+        [
+          {author: "Valia", city: "Minsk", subj: faker.random.number(10), photo: faker.image.avatar()},
+          {author: "Kolya", city: "Lipr", subj: faker.random.number(10), photo: faker.image.avatar()},
+          {author: "Tanya", city: "Gjosa", subj: faker.random.number(10), photo: faker.image.avatar()}
+        ],
+        [
+          {author: "Valia", city: "Minsk", subj: faker.random.number(10), photo: faker.image.avatar()},
+          {author: "Kolya", city: "Lipr", subj: faker.random.number(10), photo: faker.image.avatar()},
+          {author: "Tanya", city: "Gjosa", subj: faker.random.number(10), photo: faker.image.avatar()}
+        ],
+      ])
+    }
+  console.log(req); 
+  const uuid = faker.random.uuid(); 
+  res.status(200); 
+  res.send({ ...data, uuid }); 
+  res.end(); 
+  });
+
 module.exports = router;
