@@ -8,10 +8,15 @@ function App(props) {
   const [solution, setSolution] = useState({});
   const [text, setText] = useState('');
 
+  // const [check, setCheck] = useState(0);
+  // const [topic, setTopic] = useState();
+  // const [popular, setPopular] = useState();
+  // const [watched, setWatched] = useState();
+
   const [check, setCheck] = useState(0);
-  const [topic, setTopic] = useState();
-  const [popular, setPopular] = useState();
-  const [watched, setWatched] = useState();
+  const [names, setNames] = useState({names: []});
+  const [cities, setCities] = useState({cities: []});
+  const [imgs, setImgs] = useState({imgs: []});
 
   function getSolution() {
     console.log("main ->>>>>>>>>>>>>>>");
@@ -39,33 +44,55 @@ function App(props) {
     return Math.floor(Math.random() * Math.floor(max));
   }
 
+  // корабль
+  // useEffect(() => {
+  //   console.log('rerender');
+  //   fetch(`http://localhost:7777/content/popular`, {
+  //     method: 'GET',
+  //     mode: 'cors',})
+  //     .then((res) => res.json())
+  //     .then((res) => {
+  //       console.log("Popular response is ",res);
+  //       setTopic(res.topic);
+  //       setPopular(res.popular);
+  //       setWatched(res.watched);
+  //     });
+  // }, [check]);
+
   useEffect(() => {
     console.log('rerender');
-    fetch(`http://localhost:7777/content/popular`, {
+    fetch(`http://localhost:7777/content/authors`, {
       method: 'GET',
       mode: 'cors',})
       .then((res) => res.json())
       .then((res) => {
-        console.log("Popular response is ",res);
-        setTopic(res.topic);
-        setPopular(res.popular);
-        setWatched(res.watched);
+        console.log("authors response is ",res);
+        setNames(res.names);
+        setCities(res.cities);
+        setImgs(res.imgs);
       });
   }, [check]);
-
+  
+  
   return (
     <div className="App">
       <Header />
       <main>
         
         <div>
+          <p>{names[getRandomInt(4)]}</p>
+          <p>{cities[getRandomInt(4)]}</p>
+          <p>{imgs[getRandomInt(4)]}</p>
+        </div>
+
+        {/* <div>
           <p>Популярное сегодня: {topic}. Количество просмотров: {watched}</p>
           <p onClick={(e) => {
             document.getElementById("input").value=popular; setText(document.getElementById("input").value)}
             }>
             {popular}
               </p>
-        </div>
+        </div> */}
 
         <h2>Калькулятор уравнений</h2>
         
@@ -117,7 +144,6 @@ function App(props) {
       </main>
     </div>
     );
-
 }
 
 export default App;
