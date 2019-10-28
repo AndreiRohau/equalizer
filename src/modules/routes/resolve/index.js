@@ -95,14 +95,19 @@ router.get('/content/author', async (req, res) => {
     const data = {
       authors: faker.random.arrayElement([ 
         [
-          {author: "Valia", city: "Minsk", subj: faker.random.number(10), photo: faker.image.avatar()},
-          {author: "Kolya", city: "Lipr", subj: faker.random.number(10), photo: faker.image.avatar()},
-          {author: "Tanya", city: "Gjosa", subj: faker.random.number(10), photo: faker.image.avatar()}
+          {key: 1, author: faker.name.firstName(), city: faker.address.city(), subj: faker.random.number(10), photo: faker.image.avatar()},
+          {key: 2, author: faker.name.firstName(), city: faker.address.city(), subj: faker.random.number(10), photo: faker.image.avatar()},
+          {key: 3, author: faker.name.firstName(), city: faker.address.city(), subj: faker.random.number(10), photo: faker.image.avatar()}
         ],
         [
-          {author: "Valia", city: "Minsk", subj: faker.random.number(10), photo: faker.image.avatar()},
-          {author: "Kolya", city: "Lipr", subj: faker.random.number(10), photo: faker.image.avatar()},
-          {author: "Tanya", city: "Gjosa", subj: faker.random.number(10), photo: faker.image.avatar()}
+          {key: 1, author: faker.name.firstName(), city: faker.address.city(), subj: faker.random.number(10), photo: faker.image.avatar()},
+          {key: 2, author: faker.name.firstName(), city: faker.address.city(), subj: faker.random.number(10), photo: faker.image.avatar()},
+          {key: 3, author: faker.name.firstName(), city: faker.address.city(), subj: faker.random.number(10), photo: faker.image.avatar()}
+        ],
+        [
+          {key: 1, author: faker.name.firstName(), city: faker.address.city(), subj: faker.random.number(10), photo: faker.image.avatar()},
+          {key: 2, author: faker.name.firstName(), city: faker.address.city(), subj: faker.random.number(10), photo: faker.image.avatar()},
+          {key: 3, author: faker.name.firstName(), city: faker.address.city(), subj: faker.random.number(10), photo: faker.image.avatar()}
         ],
       ])
     }
