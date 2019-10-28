@@ -122,6 +122,7 @@ function App(props) {
               <p> Количество добавленных тем: {author.subj}</p> 
               <img src={author.photo} /> 
               <p>Город: {author.city}</p>
+              <hr/>
             </div>
           ))}
         </section>
