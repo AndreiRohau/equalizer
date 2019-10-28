@@ -55,26 +55,18 @@ function App(props) {
       .then((res) => res.json())
       .then((res) => {
         console.log("authors response is ",res);
-        setAuthors(res.propose);
+        setAuthors(res.authors);
       })
   }, [check]);
 
 
-  console.log("suka authors",authors[0]);
+  console.log("suka authors",authors[0] && authors[0].author);
 
   return (
     <div className="App">
       <Header />
       <main>
-      {/* <p>{authors[0].author}</p> */}
-      {/* {author[0] && author.map((item, index) => (
-         <div> 
-          <p>Автор: {item}</p> 
-          <p> Количество добавленных тем: {subject[index]}</p> 
-          <img src={photo[index]} /> 
-          <p>Город:{city[index]}</p> 
-         </div>
-      ))} */}
+      {/* <p>{authors[0] && authors[0].author}</p> */}
 
         <h2>Калькулятор уравнений</h2>
         
@@ -122,6 +114,17 @@ function App(props) {
         </section>
 
         {/* <section className="advertising"></section> */}
+        
+        <section>
+          {authors[0] && authors.map((author, key) => (
+            <div> 
+              <p>Автор: {author.author}</p> 
+              <p> Количество добавленных тем: {author.subj}</p> 
+              <img src={author.photo} /> 
+              <p>Город: {author.city}</p>
+            </div>
+          ))}
+        </section>
 
       </main>
     </div>
